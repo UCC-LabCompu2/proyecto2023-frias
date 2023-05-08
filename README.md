@@ -1,4 +1,4 @@
-### Simulador de tiro parabólico
+# Simulador de tiro parabólico
 
 ## Autor: 
 Manuel Frías Faoro.
