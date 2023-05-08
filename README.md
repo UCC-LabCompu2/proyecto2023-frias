@@ -1,3 +1,19 @@
+### Simulador de tiro parabólico
+
+## Autor: 
+Manuel Frías Faoro.
+
+## Tecnologias usadas:
+
+HTML, CSS, JavaScript.
+
+## pagina web:
+
+link: 
+
+
+
+
 # proyecto2023
 Estructura de Proyecto Lab de Compu II - 2023
 
