@@ -9,7 +9,7 @@ HTML, CSS, JavaScript.
 
 ## pagina web:
 
-link: [Pagina Principal] (https://ucc-labcompu2.github.io/proyecto2023-frias/Index.html).
+link: [Pagina Principal](https://ucc-labcompu2.github.io/proyecto2023-frias/Index.html).
 
 
 
