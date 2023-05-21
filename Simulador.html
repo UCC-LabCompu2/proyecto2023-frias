@@ -1,64 +1,102 @@
 <!DOCTYPE html>
 <html class="html0">
-    <head>
-        <title>Simulador</title>
-        <meta content="Alumno" name="Manuel Frías Faoro">
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    </head>
-      <body>
-        <header>
-          <h1 id="h1sim">Simulador</h1>
-        </header>
-        <main>
+<head>
+    <title>Simulador</title>
+    <meta name="author" content="Manuel Frías Faoro">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+    <header>
+        <h1 id="h1sim">Simulador</h1>
+    </header>
+    <main>
         <div>
-          <h2>Ingrese los siguientes datos:</h2>
-          <label for="velocidad_inicial">Velocidad inicial (m/s):</label>
-          <input type="number" id="velocidad_inicial" name="velocidad_inicial">
-          <br>
-          <label for="angulo_salida">Ángulo de salida:</label>
-          <input type="number" id="angulo_salida" name="angulo_salida">
-          <br>
+            <h2>Ingrese los siguientes datos:</h2>
+            <label for="velocidad_inicial">Velocidad inicial (m/s):</label>
+            <input type="number" id="velocidad_inicial" name="velocidad_inicial">
+            <br>
+            <label for="angulo_salida">Ángulo de salida:</label>
+            <input type="number" id="angulo_salida" name="angulo_salida">
+            <br>
         </div>
-          <button class="button1" type="submit">Calcular</button>
-          <br>
-          <br>
-          <div>
-          <table class="table1">
-            <caption id="TituloTabla">RESULTADOS:</caption>
-            <tr>
-              <th>Incognitas</th>
-              <th>Valores</th>
-            </tr>
-            <tr>
-              <td>Velocidad Final (m/s)</td>
-              <td>15</td>
-            </tr>
-            <tr>
-              <td>Altura Máxima (m)</td>
-              <td>20</td>
-            </tr>
-            <tr>
-              <td>Distancia Recorrida (m)</td>
-              <td>100</td>
-            </tr>
-            <tr>
-              <td>Tiempo de vuelo (s)</td>
-              <td>15</td>
-            </tr>
-          </table>
-        </div>
-          <br>
-          <div>
-          <canvas>
-          
-          </canvas>
-        </div>
-        </main>
+        <button class="button1" onclick="Calcular()">Calcular</button>
+
         <br>
         <br>
-        <nav>
-          <a href="Index.html"><button class="button1">Principal</button></a>
-        </nav>
-      </body>
+        <div>
+            <table class="table1">
+                <caption id="TituloTabla">RESULTADOS:</caption>
+                <tr>
+                    <th>Incógnitas</th>
+                    <th>Valores</th>
+                </tr>
+                <tr>
+                    <td>Velocidad Final (m/s)</td>
+                    <td id="velocidad_final"></td>
+                </tr>
+                <tr>
+                    <td>Altura Máxima (m)</td>
+                    <td id="altura_maxima"></td>
+                </tr>
+                <tr>
+                    <td>Distancia Recorrida en X (m)</td>
+                    <td id="distancia_x"></td>
+                </tr>
+                <tr>
+                    <td>Tiempo de vuelo (s)</td>
+                    <td id="tiempo"></td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <div>
+            <canvas>
+
+            </canvas>
+        </div>
+    </main>
+    <br>
+    <br>
+    <script>
+        function Calcular() {
+            // Obtener los valores de los inputs
+            var Vi = parseFloat(document.getElementById("velocidad_inicial").value);
+            var Ang = parseFloat(document.getElementById("angulo_salida").value);
+
+            // Verificar si los valores son números válidos
+            if (isNaN(Vi) || isNaN(Ang)) {
+                document.getElementById("velocidad_final").textContent = "";
+                document.getElementById("altura_maxima").textContent = "";
+                document.getElementById("distancia_x").textContent = "";
+                document.getElementById("tiempo").textContent = "Ingrese números válidos";
+            } else {
+                var ang_r = Ang * (Math.PI / 180);
+
+                // Calcular la velocidad final
+                var Vfx = Vi * Math.cos(ang_r); // Componente horizontal (constante)
+                var Vfy = Vi * Math.sin(ang_r); // Componente vertical (varía)
+
+                // La velocidad final es la suma vectorial de las componentes
+                var Vf = Math.sqrt(Math.pow(Vfx, 2) + Math.pow(Vfy, 2));
+                document.getElementById("velocidad_final").textContent = Vf.toFixed(2);
+
+                // Calcular el tiempo de vuelo
+                var tiempo = (2 * Vfy) / 9.81;
+                document.getElementById("tiempo").textContent = tiempo.toFixed(2);
+
+                // Calcular la altura máxima
+                var altura_maxima = Math.pow(Vfy, 2) / (2 * 9.81);
+                document.getElementById("altura_maxima").textContent = altura_maxima.toFixed(2);
+
+                // Calcular la distancia recorrida en el eje X (horizontal)
+                var distancia_x = Vfx * tiempo;
+                document.getElementById("distancia_x").textContent = distancia_x.toFixed(2);
+            }
+        }
+    </script>
+    <nav>
+        <a href="Index.html"><button class="button1">Principal</button></a>
+    </nav>
+</body>
 </html>
