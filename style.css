@@ -1,84 +1,125 @@
-@font-face{
+@font-face {
   font-family: 'mifuentepersonal';
   src: url('fonts/mifuente.ttf');
 }
-.html0{
+
+.html0 {
   background-color: aqua;
 }
-.head1{
-   text-align: center;
-   margin-top: 20px;
-    }
 
-.img1{
-    display: block;
-    margin: 0 auto;
-    height: 280px;     
+.head1 {
+  text-align: center;
+  margin-top: 20px;
 }
-p{
+
+.img1 {
+  display: block;
+  margin: 0 auto;
+  height: 280px;
+}
+
+p {
   font-size: larger;
 }
-#table0{
+
+#table0 {
   border-collapse: collapse;
   padding: 0;
   margin: 0;
 }
-th, td {
+
+th,
+td {
   border: 1px solid black;
   padding: 8px;
   text-align: left;
 }
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 label {
   font-weight: bold;
 }
+
 input[type="number"] {
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
 }
-.button0 {
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
+
+.button0,
 .button1 {
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
-button:active{
+
+button:active {
   background-color: white;
 }
-#img2{
-    display: block;
-    margin: 0 auto;
-    height: 200px;
-  }
-#TituloTabla{
+
+
+#TituloTabla {
   text-align: left;
   font-weight: bold;
+  margin-bottom: 5px;
 }
-.table1{
+
+.table1 {
   border-collapse: collapse;
-  float: left;
 }
-#h1sim{
+
+#h1sim {
   font-family: 'mifuentepersonal';
   text-align: center;
 }
-nav{
-  padding: auto;
+
+nav {
+  margin: auto;
 }
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  margin-bottom: 20px;
+}
+
+.button-container1 {
+  margin-top: 25px;
+}
+.canvas-container {
+  float: right;
+}
+
+.img-container {
+  margin-bottom: 35px;
+}
+.button2{
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+
+
+
+
+

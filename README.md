@@ -3,11 +3,11 @@
 ## Autor: 
 Manuel Frías Faoro.
 
-## Tecnologias usadas:
+## Tecnologías usadas:
 
 HTML, CSS, JavaScript.
 
-## pagina web:
+## página web:
 
 link: [Pagina Principal](https://ucc-labcompu2.github.io/proyecto2023-frias/Index.html).
 

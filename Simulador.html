@@ -1,32 +1,32 @@
-<!DOCTYPE html>
-<html class="html0">
+<!DOCTYPE html> 
+<html class="html0" lang="es">
 <head>
     <title>Simulador</title>
-    <meta name="author" content="Manuel Frías Faoro">
+    <meta content="Alumno" name="Manuel Frías Faoro">
+    <meta content="Simulación" name="Simulador">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="Funcion.js"></script>
 </head>
 <body>
     <header>
         <h1 id="h1sim">Simulador</h1>
     </header>
-    <main>
-        <div>
+    <main class="main-container">
+        <div class="input-container">
             <h2>Ingrese los siguientes datos:</h2>
             <label for="velocidad_inicial">Velocidad inicial (m/s):</label>
             <input type="number" id="velocidad_inicial" name="velocidad_inicial">
             <br>
             <label for="angulo_salida">Ángulo de salida:</label>
             <input type="number" id="angulo_salida" name="angulo_salida">
-            <br>
         </div>
-        <button class="button1" onclick="Calcular()">Calcular</button>
-
-        <br>
-        <br>
+        <div class="button-container">
+            <button class="button1" onclick="Calcular()">Calcular</button>
+        </div>
         <div>
             <table class="table1">
-                <caption id="TituloTabla">RESULTADOS:</caption>
+                <caption id="TituloTabla">RESULTADOS</caption>
                 <tr>
                     <th>Incógnitas</th>
                     <th>Valores</th>
@@ -49,54 +49,13 @@
                 </tr>
             </table>
         </div>
-        <br>
-        <div>
-            <canvas>
-
-            </canvas>
+        <div class="canvas-container">
+            <canvas></canvas>
         </div>
+        <nav class="button-container1">
+            <a href="Index.html"><button class="button1">Principal</button></a>
+        </nav>
     </main>
-    <br>
-    <br>
-    <script>
-        function Calcular() {
-            // Obtener los valores de los inputs
-            var Vi = parseFloat(document.getElementById("velocidad_inicial").value);
-            var Ang = parseFloat(document.getElementById("angulo_salida").value);
-
-            // Verificar si los valores son números válidos
-            if (isNaN(Vi) || isNaN(Ang)) {
-                document.getElementById("velocidad_final").textContent = "";
-                document.getElementById("altura_maxima").textContent = "";
-                document.getElementById("distancia_x").textContent = "";
-                document.getElementById("tiempo").textContent = "Ingrese números válidos";
-            } else {
-                var ang_r = Ang * (Math.PI / 180);
-
-                // Calcular la velocidad final
-                var Vfx = Vi * Math.cos(ang_r); // Componente horizontal (constante)
-                var Vfy = Vi * Math.sin(ang_r); // Componente vertical (varía)
-
-                // La velocidad final es la suma vectorial de las componentes
-                var Vf = Math.sqrt(Math.pow(Vfx, 2) + Math.pow(Vfy, 2));
-                document.getElementById("velocidad_final").textContent = Vf.toFixed(2);
-
-                // Calcular el tiempo de vuelo
-                var tiempo = (2 * Vfy) / 9.81;
-                document.getElementById("tiempo").textContent = tiempo.toFixed(2);
-
-                // Calcular la altura máxima
-                var altura_maxima = Math.pow(Vfy, 2) / (2 * 9.81);
-                document.getElementById("altura_maxima").textContent = altura_maxima.toFixed(2);
-
-                // Calcular la distancia recorrida en el eje X (horizontal)
-                var distancia_x = Vfx * tiempo;
-                document.getElementById("distancia_x").textContent = distancia_x.toFixed(2);
-            }
-        }
-    </script>
-    <nav>
-        <a href="Index.html"><button class="button1">Principal</button></a>
-    </nav>
+    
 </body>
 </html>
