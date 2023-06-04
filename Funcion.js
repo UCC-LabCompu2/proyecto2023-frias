@@ -5,12 +5,14 @@
 * @param {number} Vi - Velocidad inicial ingresada por el usuario
 * @param {number} Ang - Angulo de salida que ingresa el usuario
 * @return retorna en la tabla de resultados los siguientes parametros: Velociadad final, Altura máxima, 
-* Distancia recorrida en X y Tiempo de vuelo
+* Distancia recorrida en X y Tiempo de vuelo.
 */
+var Vfx, Vfy, tiempo;
+
 function Calcular() {
-    var Vi = parseFloat(document.getElementById("velocidad_inicial").value);
-    var Ang = parseFloat(document.getElementById("angulo_salida").value);
-    var Vfx, Vfy;
+    let Vi = parseFloat(document.getElementById("velocidad_inicial").value);
+    let Ang = parseFloat(document.getElementById("angulo_salida").value);
+
 
     if (isNaN(Vi) || isNaN(Ang)) {
         document.getElementById("velocidad_inicial").value = "";
@@ -42,23 +44,23 @@ function Calcular() {
                 document.getElementById("tiempo").textContent = "";
                 alert("No ingrese un valor mayor a 89 en el ángulo de salida");
             } else {
-                var ang_r = Ang * (Math.PI / 180);
+                let ang_r = Ang * (Math.PI / 180);
                 Vfx = Vi * Math.cos(ang_r);
                 Vfy = Vi * Math.sin(ang_r);
 
-                var Vf = Math.sqrt(Math.pow(Vfx, 2) + Math.pow(Vfy, 2));
+                let Vf = Math.sqrt(Math.pow(Vfx, 2) + Math.pow(Vfy, 2));
                 document.getElementById("velocidad_final").textContent = Vf.toFixed(2);
 
-                var tiempo = (2 * Vfy) / 9.81;
+                tiempo = (2 * Vfy) / 9.81;
                 document.getElementById("tiempo").textContent = tiempo.toFixed(2);
 
-                var altura_maxima = Math.pow(Vfy, 2) / (2 * 9.81);
+                let altura_maxima = Math.pow(Vfy, 2) / (2 * 9.81);
                 document.getElementById("altura_maxima").textContent = altura_maxima.toFixed(2);
 
-                var distancia_x = Vfx * tiempo;
+                let distancia_x = Vfx * tiempo;
                 document.getElementById("distancia_x").textContent = distancia_x.toFixed(2);
 
-                generarLienzo(Vfx, Vfy, tiempo);
+                generarLienzo();
             }
         }
     }
@@ -66,37 +68,39 @@ function Calcular() {
 
 /**
  * Genera el lienzo (canvas) y dibuja la trayectoria del tiro parabólico
+ * @method nombre generarLienzo
  * @param {number} Vfx - Velocidad horizontal del proyectil
  * @param {number} Vfy - Velocidad vertical del proyectil
  * @param {number} tiempo - Tiempo de vuelo del proyectil
+ * @return retorna la representación gráfica en la etiqueta <canvas>.
  */
-function generarLienzo(Vfx, Vfy, tiempo) {
-    var canvas = document.querySelector("canvas");
-    var ctx = canvas.getContext("2d");
-    var timeStep = 0.1;
-    var totalTime = tiempo;
-    var numSteps = totalTime / timeStep;
+function generarLienzo() {
+    let canvas = document.querySelector("canvas");
+    let ctx = canvas.getContext("2d");
+    let timeStep = 0.1;
+    let totalTime = tiempo;
+    let numSteps = totalTime / timeStep;
 
-    var canvasWidth = canvas.width;
-    var canvasHeight = canvas.height;
-    var scale = 8;
-    var originX = 0;
-    var originY = canvasHeight;
+    let canvasWidth = canvas.width;
+    let canvasHeight = canvas.height;
+    let scale = 8;
+    let originX = 0;
+    let originY = canvasHeight;
 
     function toCanvasCoordinates(x, y) {
-        var canvasX = originX + x * scale;
-        var canvasY = originY - y * scale;
+        let canvasX = originX + x * scale;
+        let canvasY = originY - y * scale;
         return { x: canvasX, y: canvasY };
     }
 
     function drawTrajectory() {
-        var x = 0;
-        var y = 0;
+        let x = 0;
+        let y = 0;
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.beginPath();
         ctx.moveTo(originX, originY);
 
-        for (var i = 0; i <= numSteps; i++) {
+        for (let i = 0; i <= numSteps; i++) {
             x = Vfx * (i * timeStep);
             y = Vfy * (i * timeStep) - 0.5 * 9.81 * Math.pow(i * timeStep, 2);
             var canvasCoords = toCanvasCoordinates(x, y);
