@@ -99,16 +99,32 @@ function generarLienzo() {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         ctx.beginPath();
         ctx.moveTo(originX, originY);
-
-        for (let i = 0; i <= numSteps; i++) {
+      
+        let totalTime = tiempo;
+        let numSteps = totalTime / timeStep;
+        let initialY = Vfy * totalTime - 0.5 * 9.81 * Math.pow(totalTime, 2);
+      
+        let i = 0;
+        function drawNextPoint() {
+          if (i <= numSteps) {
             x = Vfx * (i * timeStep);
-            y = Vfy * (i * timeStep) - 0.5 * 9.81 * Math.pow(i * timeStep, 2);
+            y = initialY + Vfy * (i * timeStep) - 0.5 * 9.81 * Math.pow(i * timeStep, 2);
+            if (y < 0) y = 0; // Asegura que la altura Y no sea menor que cero
             var canvasCoords = toCanvasCoordinates(x, y);
+      
             ctx.lineTo(canvasCoords.x, canvasCoords.y);
+            ctx.stroke();
+      
+            i++;
+            setTimeout(drawNextPoint, 100); // Ajusta el tiempo de retraso aquí (en milisegundos)
+          }
         }
-
-        ctx.stroke();
-    }
+      
+        drawNextPoint();
+      }
+      
+      
+      
 
     drawTrajectory();
 }
