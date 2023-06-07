@@ -87,13 +87,13 @@ function generarLienzo() {
     let originX = 0;
     let originY = canvasHeight;
 
-    function toCanvasCoordinates(x, y) {
+    function Coordenadas(x, y) {
         let canvasX = originX + x * scale;
         let canvasY = originY - y * scale;
         return { x: canvasX, y: canvasY };
     }
 
-    function drawTrajectory() {
+    function Trayectoria() {
         let x = 0;
         let y = 0;
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -105,27 +105,24 @@ function generarLienzo() {
         let initialY = Vfy * totalTime - 0.5 * 9.81 * Math.pow(totalTime, 2);
 
         let i = 0;
-        function drawNextPoint() {
+        function ProximoPunto() {
             if (i <= numSteps) {
                 x = Vfx * (i * timeStep);
                 y = initialY + Vfy * (i * timeStep) - 0.5 * 9.81 * Math.pow(i * timeStep, 2);
                 if (y < 0) y = 0;
-                var canvasCoords = toCanvasCoordinates(x, y);
+                var canvasCoords = Coordenadas(x, y);
 
                 ctx.lineTo(canvasCoords.x, canvasCoords.y);
                 ctx.stroke();
 
                 i++;
-                setTimeout(drawNextPoint, 100);
+                setTimeout(ProximoPunto, 100);
             }
         }
 
-        drawNextPoint();
+        ProximoPunto();
     }
 
-
-
-
-    drawTrajectory();
+    Trayectoria();
 }
 
