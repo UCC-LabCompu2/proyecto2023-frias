@@ -8,14 +8,14 @@ var Vfx, Vfy, altMax, tiempo; // Variables globales para almacenar los cálculos
  */
 function Calcular() {
 
-    //inhabilita el boton calcular
+    //inhabilita el boton calcular.
     document.getElementById('botoncalc').disabled = true;
 
     let Vi = parseFloat(document.getElementById("velocidad_inicial").value);
     let Ang = parseFloat(document.getElementById("angulo_salida").value);
     let Vf, distX;
 
-    //valida todas las entradas de datos y deja vacios los espacios en la tabla
+    //valida todas las entradas de datos y deja vacios los espacios en la tabla.
     if ((isNaN(Vi) || isNaN(Ang)) || (Vi > 90000) || (Vi <= 0) || (Ang >= 90) || (Ang <= 0)) {
         if (isNaN(Vi)) {
             alert("Ingrese datos válidos en la velocidad");
@@ -46,11 +46,12 @@ function Calcular() {
         document.getElementById("altura_maxima").textContent = "";
         document.getElementById("distancia_x").textContent = "";
         document.getElementById("tiempo").textContent = "";
-        //habilita nuevamente el boton calcular
+
+        //habilita nuevamente el boton calcular.
         document.getElementById('botoncalc').disabled = false;
     } else {
 
-        //calcula y completa la tabla de resultados
+        //calcula y completa la tabla de resultados.
         let ang_r = Ang * (Math.PI / 180);
         Vfx = Vi * Math.cos(ang_r);
         Vfy = Vi * Math.sin(ang_r);
@@ -70,7 +71,7 @@ function Calcular() {
 }
 
 /**
- * Genera el lienzo (canvas) y dibuja la trayectoria del tiro parabólico
+ * Genera el lienzo (canvas) y dibuja la trayectoria del tiro parabólico.
  * @method generarLienzo
  * @return retorna la representación gráfica en la etiqueta <canvas>.
  */
@@ -101,18 +102,19 @@ function generarLienzo() {
         return { x: canvasX, y: canvasY };
     }
     /** 
-    * Calcula Velociadad final, Altura máxima, Distancia recorrida en X y Tiempo de vuelo, 
+    * dibuja los ejes x e y, les signa una graduación, calcula la coordenada inicial en y
+    * y llama a la funcion ProximoPunto.  
     * a partir de los datos ingresados por el usuario.  
-    * @method Calcular 
-    * @return retorna en la tabla de resultados los siguientes parametros: Velociadad final, Altura máxima,  
-    * Distancia recorrida en X y Tiempo de vuelo. 
+    * @method Trayectoria
+    * @return retorna en el lienzo, un par de ejes coordenados, con su graduacion y dibuja la trayectoria del 
+    * proyectil.
     */
     function Trayectoria() {
         let x = 0;
         let y = 0;
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-        // dibuja los ejes x e y
+        // dibuja los ejes x e y.
         ctx.beginPath();
         ctx.moveTo(originX, 0);
         ctx.lineTo(originX, canvasHeight);
@@ -120,11 +122,16 @@ function generarLienzo() {
         ctx.lineTo(canvasWidth, originY);
         ctx.stroke();
 
-        // agrega labels a los ejes
+        //Dibuja la unidad de la graduación "(m)".
+        ctx.font = "9px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText("(m)", originX - 25, originY + 15);
+
+        // agrega labels a los ejes.
         ctx.font = "9px Arial";
         ctx.fillStyle = "black";
 
-        // dibuja la graduación del eje x
+        // dibuja la graduación (lineas y numeros) del eje x.
         for (let i = 0; i <= canvasWidth / scale; i += 2) {
             let xCoord = originX + i * scale;
             ctx.moveTo(xCoord, originY - 3);
@@ -133,7 +140,7 @@ function generarLienzo() {
             ctx.fillText(i, xCoord - 5, originY + 15);
         }
 
-        // dibuja la graduación del eje x
+        // dibuja la graduación (lineas y numeros) del eje y.
         for (let i = 0; i <= canvasHeight / scale; i += 2) {
             let yCoord = originY - i * scale;
             ctx.moveTo(originX - 3, yCoord);
@@ -142,7 +149,7 @@ function generarLienzo() {
             ctx.fillText(i, originX - 20, yCoord + 5);
         }
 
-        // calcula la coordenada inicial en y
+        // calcula la coordenada inicial en y.
         let initialY = Vfy * totalTime - 0.5 * 9.81 * Math.pow(totalTime, 2);
         y = initialY;
         let canvasCoords = Coordenadas(x, y);
@@ -179,7 +186,7 @@ function generarLienzo() {
 }
 
 /** 
- * Marca en el lienzo canvas la altura maxima que alcanza el proyectil  
+ * Marca en el lienzo canvas la altura maxima que alcanza el proyectil.  
  * @method Calcular 
  * @return Retorna en el lienzo canvas un punto verde en el punto mas alto de la parabola. 
  */
@@ -188,22 +195,22 @@ function marcarPuntoMedio() {
     let canvas = document.querySelector("canvas");
     let ctx = canvas.getContext("2d");
 
-    // Calcular las coordenadas del punto medio del tiempo de vuelo
+    // Calcular las coordenadas del punto medio del tiempo de vuelo.
     let xMedio = (Vfx * (tiempo * 4)) + 30;
     let yMedio = altMax + 2.5;
 
-    // Dibujar un círculo verde en el punto medio del tiempo de vuelo
+    // Dibujar un círculo verde en el punto medio del tiempo de vuelo.
     ctx.fillStyle = "green";
     ctx.beginPath();
     ctx.arc(xMedio, canvas.height - yMedio * 8, 3, 0, 2 * Math.PI);
     ctx.fill();
 
-    // Mostrar el texto "Punto Medio" encima del punto
+    // Mostrar el texto "Punto Medio" encima del punto.
     ctx.fillStyle = "black";
     ctx.font = "10px Arial";
     ctx.fillText("Hmax", xMedio - 15, canvas.height - yMedio * 8 - 8);
 
-    //habilita nuevamente el boton calcular
+    //habilita nuevamente el boton calcular.
     document.getElementById('botoncalc').disabled = false;
 }
 
